@@ -200,41 +200,16 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// app/dashboard/[id]/page.tsx
-
-import React from 'react';
-
-interface PageProps {
+type PageProps = {
   params: {
     id: string;
   };
-}
-
-const DashboardPage = ({ params }: PageProps) => {
-  const { id } = params;
-
-  return (
-    <div>
-      <h1>Dashboard Page</h1>
-      <p>ID: {id}</p>
-    </div>
-
-  );
 };
 
-export default DashboardPage;
+export default function Page({ params }: PageProps) {
+  return (
+    <div>
+      ID: {params.id}
+    </div>
+  );
+}
