@@ -1,17 +1,10 @@
-import EmployeeDetailsPageClient from "./EmployeeDetailsPageClient";
-import { Metadata } from "next";
+// app/dashboard/[id]/page.tsx
 
-interface PageProps {
-  params: {
-    id: string;
-  };
-}
-
-export const metadata: Metadata = {
-  title: "Employee Details",
-};
-
-export default function Page({ params }: PageProps) {
-  const { id } = params;
-  return <EmployeeDetailsPageClient id={id} />;
+export default function DashboardPage({ params }: { params: { id: string } }) {
+  return (
+    <div>
+      <h1>Dashboard Page</h1>
+      <p>ID: {params.id}</p>
+    </div>
+  );
 }
