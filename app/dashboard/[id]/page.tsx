@@ -65,6 +65,10 @@ export default function EmployeeDetailsPage({
         const res = await fetch(`https://dummyjson.com/users/${id}`);
         const data = await res.json();
 
+        const addressString = data?.address
+          ? `${data.address.address}, ${data.address.city}, ${data.address.state}`
+          : "No address available";
+
         const userDetails: UserDetail = {
           id: data.id,
           firstName: data.firstName,
@@ -73,7 +77,7 @@ export default function EmployeeDetailsPage({
           age: data.age,
           image: data.image,
           department: getRandomDepartment(),
-          address: `${data.address.address}, ${data.address.city}, ${data.address.state}`,
+          address: addressString,
           phone: data.phone,
           bio: "Dedicated employee with strong work ethics and passion for excellence.",
           performanceHistory: getRandomPerformanceHistory(),
@@ -91,7 +95,7 @@ export default function EmployeeDetailsPage({
 
   if (!user) return <p className="p-6">Loading user details...</p>;
 
-  function renderStars(rating: number) {
+  const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (
       <span
         key={i}
@@ -100,13 +104,13 @@ export default function EmployeeDetailsPage({
         ★
       </span>
     ));
-  }
+  };
 
-  function badgeColor(rating: number) {
+  const badgeColor = (rating: number) => {
     if (rating >= 4) return "bg-green-200 text-green-800";
     if (rating >= 2) return "bg-yellow-200 text-yellow-800";
     return "bg-red-200 text-red-800";
-  }
+  };
 
   return (
     <main className="max-w-4xl mx-auto p-6 bg-white rounded shadow mt-6">
