@@ -1,10 +1,19 @@
 // app/dashboard/[id]/page.tsx
 
-export default function DashboardPage({ params }: { params: { id: string } }) {
+interface Props {
+  params: {
+    id: string;
+  };
+}
+
+// ✅ This is the correct and simple way to avoid all TypeScript errors
+export default function DashboardPage({ params }: Props) {
+  const { id } = params;
+
   return (
     <div>
-      <h1>Dashboard Page</h1>
-      <p>ID: {params.id}</p>
+      <h1>Dashboard</h1>
+      <p>User ID: {id}</p>
     </div>
   );
 }
