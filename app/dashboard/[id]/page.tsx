@@ -1,15 +1,13 @@
 // app/dashboard/[id]/page.tsx
 
 interface PageProps {
-  params: {
-    id: string;
-  };
+  params: { id: string };
 }
 
-export default function Page({ params }: PageProps) {
+export default async function Page({ params }: PageProps) {
   return (
     <div>
-      <h1>Dashboard Page for ID: {params.id}</h1>
+      <h1>User Dashboard ID: {params.id}</h1>
     </div>
   );
 }
