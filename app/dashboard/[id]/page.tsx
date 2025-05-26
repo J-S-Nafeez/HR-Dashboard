@@ -199,23 +199,11 @@
 
 
 
-
-
 // app/dashboard/[id]/page.tsx
 
-type PageProps = {
-  params: {
-    id: string;
-  };
-};
+import EmployeeDetailsPageClient from "./EmployeeDetailsPageClient";
 
-export default function DashboardPage({ params }: PageProps) {
+export default function Page({ params }: { params: { id: string } }) {
   const { id } = params;
-
-  return (
-    <div>
-      <h1>Dashboard Page</h1>
-      <p>ID: {id}</p>
-    </div>
-  );
+  return <EmployeeDetailsPageClient id={id} />;
 }
