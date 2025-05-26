@@ -44,8 +44,8 @@ function getRandomPerformanceHistory(): Performance[] {
     "Project Delta",
     "Project Epsilon",
   ];
-  return projects.map((p) => ({
-    project: p,
+  return projects.map((project) => ({
+    project,
     rating: Math.floor(Math.random() * 5) + 1,
   }));
 }
@@ -61,25 +61,29 @@ export default function EmployeeDetailsPage({
 
   useEffect(() => {
     async function fetchUser() {
-      const res = await fetch(`https://dummyjson.com/users/${id}`);
-      const data = await res.json();
+      try {
+        const res = await fetch(`https://dummyjson.com/users/${id}`);
+        const data = await res.json();
 
-      const userDetails: UserDetail = {
-        id: data.id,
-        firstName: data.firstName,
-        lastName: data.lastName,
-        email: data.email,
-        age: data.age,
-        image: data.image,
-        department: getRandomDepartment(),
-        address: `${data.address.address}, ${data.address.city}, ${data.address.state}`,
-        phone: data.phone,
-        bio: "Dedicated employee with strong work ethics and passion for excellence.",
-        performanceHistory: getRandomPerformanceHistory(),
-        rating: Math.floor(Math.random() * 5) + 1,
-      };
+        const userDetails: UserDetail = {
+          id: data.id,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          email: data.email,
+          age: data.age,
+          image: data.image,
+          department: getRandomDepartment(),
+          address: `${data.address.address}, ${data.address.city}, ${data.address.state}`,
+          phone: data.phone,
+          bio: "Dedicated employee with strong work ethics and passion for excellence.",
+          performanceHistory: getRandomPerformanceHistory(),
+          rating: Math.floor(Math.random() * 5) + 1,
+        };
 
-      setUser(userDetails);
+        setUser(userDetails);
+      } catch (error) {
+        console.error("Error fetching user:", error);
+      }
     }
 
     fetchUser();
@@ -88,18 +92,14 @@ export default function EmployeeDetailsPage({
   if (!user) return <p className="p-6">Loading user details...</p>;
 
   function renderStars(rating: number) {
-    const stars = [];
-    for (let i = 1; i <= 5; i++) {
-      stars.push(
-        <span
-          key={i}
-          className={`text-xl ${i <= rating ? "text-yellow-400" : "text-gray-300"}`}
-        >
-          ★
-        </span>
-      );
-    }
-    return stars;
+    return Array.from({ length: 5 }, (_, i) => (
+      <span
+        key={i}
+        className={`text-xl ${i < rating ? "text-yellow-400" : "text-gray-300"}`}
+      >
+        ★
+      </span>
+    ));
   }
 
   function badgeColor(rating: number) {
@@ -186,4 +186,3 @@ export default function EmployeeDetailsPage({
     </main>
   );
 }
-
