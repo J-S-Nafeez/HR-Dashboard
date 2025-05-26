@@ -200,16 +200,22 @@
 
 
 
+
+// app/dashboard/[id]/page.tsx
+
 type PageProps = {
   params: {
     id: string;
   };
 };
 
-export default function Page({ params }: PageProps) {
+export default function DashboardPage({ params }: PageProps) {
+  const { id } = params;
+
   return (
     <div>
-      ID: {params.id}
+      <h1>Dashboard Page</h1>
+      <p>ID: {id}</p>
     </div>
   );
 }
